@@ -29,25 +29,24 @@ DATA = {
 #   }
 # }
 def home_view(request):
-    path_recipe = reverse('recipe')
     context = {
         'recipes': {
-            'Омлет': f"{path_recipe}?rec=1",
-            'Паста': f"{path_recipe}?rec=2",
-            'Бутер': f"{path_recipe}?rec=3"
+            'Омлет': 'omlet',
+            'Паста': 'pasta',
+            'Бутер': 'buter'
         }
     }
     return render(request, 'calculator/home.html', context)
 
-def recipe_view(request):
-    param = request.GET.get("rec")
+def recipe_view(request, name_path):
+    number = int(request.GET.get('amount', 1))
+    dict_temp = DATA[f'{name_path}'].copy()
+    for key, value in dict_temp.items():
+        dict_temp[key] = dict_temp[key] * number
+
     context = {
         'home': reverse('home'),
+        'recipe': dict_temp,
     }
-    if param == '1':
-        context['recipe'] = DATA['omlet']
-    elif param == '2':
-        context['recipe'] = DATA['pasta']
-    elif param == '3':
-        context['recipe'] = DATA['buter']
+
     return render(request, 'calculator/index.html', context)

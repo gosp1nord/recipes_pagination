@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <title>Начало</title>
 </head>
-<body>
+<p>
 <h2>Список рецептов:</h2>
     {% for title, url in recipes.items %}
-        <a href="{{ url }}">{{ title }}</a>
-        <br>
+<pre><a href="{{ url }}">{{ title }}</a>   --  <a href="{{ url }}?amount=2">2 порции</a></pre>
     {% endfor %}
 </body>
 </html>
